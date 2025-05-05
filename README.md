@@ -16,8 +16,8 @@ An automated system that fetches encrypted height measurement images from a data
 
 - 🗃️ **Encrypted Image Retrieval** – Periodically fetches new encrypted images from a database
 - 🔐 **Decryption Pipeline** – Converts encrypted images into processable image data
-- 🎯 **Custom Height Detection Models** – Three SSD-based models extract scale, pointer, and background regions
-- 📏 **Height Estimation** – Calculates height in cm/inches based on pointer position relative to the scale
+- 🎯 **Custom Height Detection Models** – Three SSD-based models extract scale, pointer, and numbers
+- 📏 **Height Estimation** – Calculates height in cm based on pointer position on the scale in image
 - 🔍 **Cross Verification** – Compares with stored DB values for discrepancy checks
 - 🚨 **Alert System** – Flags mismatches or suspicious calibration errors for manual review
 
@@ -37,9 +37,8 @@ An automated system that fetches encrypted height measurement images from a data
 | Language            | Python                    |
 | Detection Models    | SSD (custom-trained)      |
 | Image Processing    | OpenCV                    |
-| Database Access     | MySQL / MSSQL (flexible)  |
-| Decryption          | Python Cryptography       |
-| Backend Execution   | Flask / Scheduled Script  |
+| Database Access     | MySQL / MSSQL  |
+| Backend Execution   | Flask   |
 
 ---
 
@@ -59,12 +58,12 @@ To ensure reliable and automated height verification for candidate evaluation im
 
 3. **🧠 Height Region Detection**  
    Three custom SSD models detect:
-   - Measuring scale region
-   - Pointer marking candidate height
-   - Background/boundary for perspective correction
+   - **Scale Region** – Identifies the vertical height scale in the image
+   - **Pointer Marker** – Detects the pointer indicating the candidate’s height
+   - **Numbers** – Detects the numeric labels (e.g., cm marks)
 
 4. **📏 Height Calculation**  
-   Uses the pixel ratio between the scale markings to compute real-world height.
+   Uses a custom logic that calculates real-world height based on the pixels and detections of pointer and the numeric scale markings.
 
 5. **📊 Database Comparison**  
    The calculated height is matched against the stored height value for the application number.
